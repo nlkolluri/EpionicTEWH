@@ -1,0 +1,2 @@
+-Main changes are in the XML file (layout), permissions (XML), and java - two classes.
+-Arduino_code is the Arduino code
