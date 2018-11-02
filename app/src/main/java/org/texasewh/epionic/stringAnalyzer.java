@@ -31,20 +31,30 @@ class StringAnalyzer {
         tempCounter=0;
     }
 
-    public void startParse() {
+    public boolean startParse( TextView dataDisplay ) {
         String[] theProbes = inputString.split(probeSplitter);
-        String BPData = theProbes[0];
-        String pulseOxData = theProbes[1];
-        String ECGData = theProbes[2];
-        String tempData = theProbes[3];
-        double[] tempArray = new double[tempData.length()];
-        //go through the data and first, loop to see if anything urgent
-        //then go through and display one at a time for each data
+        if (theProbes.length>=4) {
+            String BPData = theProbes[0];
+            String pulseOxData = theProbes[1];
+            String ECGData = theProbes[2];
+            String tempData = theProbes[3];
 
-        parseBP(BPData, subSplitter);
-        parsePulseOx(pulseOxData, subSplitter);
-        parseECGData(ECGData, subSplitter);
-        parseTemp(tempData, subSplitter);
+            double[] tempArray = new double[tempData.length()];
+            //go through the data and first, loop to see if anything urgent
+            //then go through and display one at a time for each data
+
+            parseBP(BPData, subSplitter);
+            parsePulseOx(pulseOxData, subSplitter);
+            parseECGData(ECGData, subSplitter);
+            parseTemp(tempData, subSplitter);
+            dataDisplay.setText(""); // goal is to avoid the "not 4 arrays" always showing
+            return true;
+        } else {
+
+            dataDisplay.setText("Not 4 arrays for pulseox, BP, temp, ecg");
+            return false;
+        }
+
     }
 
     public void parseBP(String BPData, String subSplitter) {
@@ -89,12 +99,24 @@ class StringAnalyzer {
         }
     }
 
+    public double [] getTempArray(){
+        return tempArray;
+    }
+    public int getTempCounter(){
+        return tempCounter;
+    }
     public void displayTemps(TextView dataDisplay) {
         //for (int i = 0; i < tempArray.length; i++) {}
         //display it
-        tempCounter = tempCounter%(tempArray.length);
-        dataDisplay.setText("Reading " + tempCounter+ ": " + tempArray[tempCounter]);
-        tempCounter++;
+        //tempCounter = tempCounter%(tempArray.length);
+
+        for (int tempCounter=0; tempCounter<tempArray.length; tempCounter++) {
+            String placeHolder = dataDisplay.getText() + "Reading " + tempCounter + ": " + tempArray[tempCounter] + "\n";
+            dataDisplay.setText(placeHolder);
+        }
+
+
+        //tempCounter++;
 
         //wait some time
             /* Look in to this later but not now -- might not be an MBP concern
