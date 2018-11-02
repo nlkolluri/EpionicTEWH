@@ -1,0 +1,55 @@
+#include <SoftwareSerial.h>
+
+
+SoftwareSerial EEBlue(10, 11); // RX | TX
+boolean happened= false;
+void setup() {
+  Serial.begin(9600);
+  EEBlue.begin(9600);  //Default Baud for comm
+  Serial.println("The bluetooth gates are open.\n Connect to HC-05 from any other bluetooth device with 1234 as pairing key!.");
+ 
+}
+     
+void loop() {
+  // Feed any data from bluetooth to Terminal.
+  
+  if (EEBlue.available())
+    Serial.write(EEBlue.read());
+
+
+    
+  if (!happened) {
+    //EEBlue.print("#55,34,78,22,39,43#72,29,33,44,23#503839,28,39,4985,47#92,21,24,29,33,23");
+    String first = (String) (rand()%6);
+    String second = (String) (rand()%5);
+    String data = "1#2#1#" + first + "," + second;
+    EEBlue.print(data);
+  }
+  Serial.println(happened);
+  int times = 5000;
+   delay(times/5);
+    /*works with above, doesn't work when I'm just typing for some reason :x* -- but that
+     * is fine. Only works when I type in my own 4 additional things, then does it based on
+     * the above numbers;; using 2155 as second reading.. b/c it reconcatenates it with
+     * itself
+     */
+  //  happened=true;
+  
+  
+  
+
+    
+  // Feed all data from termial to bluetooth
+//  if (Serial.available())
+//  {
+//    Serial.println("available");
+//    //EEBlue.write(Serial.read());
+//     
+//      Serial.println(EEBlue.write(Serial.read())); 
+//    
+//    
+//   }
+    
+  //}
+  //EEBlue.write("hello");
+}
