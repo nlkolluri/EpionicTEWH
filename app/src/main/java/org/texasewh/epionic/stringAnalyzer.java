@@ -1,3 +1,19 @@
+/*
+newArray = array.split("#");
+String identifier = newArray[0];
+String data = newArray[1]
+
+switch(identifier){
+case "BP": call BPMethod(data); break;
+case "TP": do something; break
+case "HR": do something; break
+case "PO": do something; break
+
+
+}
+*/
+
+
 package org.texasewh.epionic;
 
 import android.widget.TextView;
@@ -34,18 +50,18 @@ class StringAnalyzer {
     public boolean startParse( TextView dataDisplay ) {
         String[] theProbes = inputString.split(probeSplitter);
         if (theProbes.length>=4) {
-            String BPData = theProbes[0];
-            String pulseOxData = theProbes[1];
-            String ECGData = theProbes[2];
+           // String BPData = theProbes[0];
+            // String pulseOxData = theProbes[1];
+            // String ECGData = theProbes[2];
             String tempData = theProbes[3];
 
             double[] tempArray = new double[tempData.length()];
             //go through the data and first, loop to see if anything urgent
             //then go through and display one at a time for each data
 
-            parseBP(BPData, subSplitter);
-            parsePulseOx(pulseOxData, subSplitter);
-            parseECGData(ECGData, subSplitter);
+           // parseBP(BPData, subSplitter);
+           // parsePulseOx(pulseOxData, subSplitter);
+           // parseECGData(ECGData, subSplitter);
             parseTemp(tempData, subSplitter);
             dataDisplay.setText(""); // goal is to avoid the "not 4 arrays" always showing
             return true;
