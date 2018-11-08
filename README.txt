@@ -1,2 +1,3 @@
+-Still need to fix this. It would work previously with simple splitting by # and not having different data types, but for some reason this gives an error on-crash, and it doesn't appear to be /solely/ due to typecasting a String to a double.
 -Main changes are in the XML file (layout), permissions (XML), and java - two classes.
 -Arduino_code is the Arduino code
