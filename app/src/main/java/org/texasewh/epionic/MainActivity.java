@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private String inputString = "45,23#23,43#99,99#00,11,22,33,44,55,66,77,88,99,1010";
     private String probeString = "#";
     private String subSplitter = ",";
+    private ArrayList<String> flaggedData;
 
     String holder = "";
     int waitCounter=0;
@@ -230,11 +232,44 @@ public class MainActivity extends AppCompatActivity {
                                         //dataDisplay.setText("Run reached");
                                       //  status.append("\n" + holder);
                                      //   StringAnalyzer firstAnalyzer = new StringAnalyzer(holder, "#", ",");
+
+
+                                    //NOTE: ERROR MAY HAVE BEEN THAT WITH THE SECOND PART OF THE ARRAY - THE NUMBERS in dataInput[1] - I MAY NOT HAVE
+                                    // BROKEN THAT IN TO A SECOND ARRAY PROPERLY --DEFINITELY A POSSIBILITY
+
+                                    //If that's not the issue another possibility for a solution is simply: take the value of dataInput[0] and
+                                    //the array of dataInput[1] and pass them to a method somewhere else. This way the initial processing is done
+                                    //here and the simple stuff, which isn't touching raw arduino data, is done later.
                                     status.append(string);
                                     status.append("\n");
+
+                                    if (string.length()==9){
+                                        String [] dataInput = string.split("#");
+                                        String statusData = "Data Type: " + dataInput[0] + "\n" + "Reading: ";
+                                        status.append(statusData);
+                                        for (String i: dataInput[1].split(",")){
+                                            status.append(i + "\n");
+                                        }
+                                    }
+
+                                    /*
                                     StringAnalyzer firstAnalyzer = new StringAnalyzer(string, "#", ",");
-                                    if (firstAnalyzer.startParse(dataDisplay)) {
+                                    firstAnalyzer.startParse(dataDisplay, status);
+                                    */
+
+                                        /*
                                         firstAnalyzer.displayTemps(dataDisplay);
+                                        ArrayList<String> flaggedInfo = firstAnalyzer.getAllFlaggedData();
+                                        for (String item: flaggedInfo){
+                                            flaggedData.add(item);
+                                        }
+                                    */
+
+
+
+
+
+
                                     }
                                     //dataDisplay.setText(dataDisplay.getText()+"\n"+string );
                                      /*   if (firstAnalyzer.startParse(dataDisplay)) {
@@ -251,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                                }
+                                //}
                             });
 
                         }
